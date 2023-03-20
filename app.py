@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from models import db, Libros
 from logging import exception
 import json
@@ -11,7 +11,7 @@ db.init_app(app)
 
 @app.route('/')
 def home():
-    return '<h1>Hola</h1>'
+    return render_template('index.html')
 
 #Las columnas de la tabla y las claves del json estaran en ingles por conflictos con caracteres especiales
 @app.route("/api/libros", methods=['GET'])
@@ -72,6 +72,20 @@ def getLibro():
     except Exception:
         exception('--> [SERVER]: Error')
         return jsonify({'msg': 'Ocurrio un error'}), 500
+
+
+@app.route('/api/addlibro', methods=['POST'])
+def addlibro():
+    try:
+        title = request.form['title']
+        year = request.form['year']
+        author = request.form['author']
+        languaje = request.form['languaje']
+        status = request.form['status']
+        url = request.form['url']
+    except Exception:
+        pass
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=4000),500
