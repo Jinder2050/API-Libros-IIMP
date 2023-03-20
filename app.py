@@ -8,10 +8,21 @@ app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///E:\PROGRAMACION PYTHON\API\Da
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-
+#Primera plantilla
 @app.route('/')
 def home():
+    '''
+    Esta funcion devuelve el formulario de entrada de datos
+    '''
     return render_template('index.html')
+
+#Segunda plantilla
+@app.route('/searchtitle', methods=['GET'])
+def searchtitle():
+    '''
+    Esta funcion devuelve el buscador de libro por el titulo
+    '''
+    return render_template('searchtitle.html')
 
 #Las columnas de la tabla y las claves del json estaran en ingles por conflictos con caracteres especiales
 @app.route("/api/libros", methods=['GET'])
@@ -83,9 +94,30 @@ def addlibro():
         languaje = request.form['languaje']
         status = request.form['status']
         url = request.form['url']
+
+        libro = Libros(title, int(year), author, languaje, status, url)
+        db.session.add(libro)
+        db.session.commit()
+
+        return jsonify(libro.serialize()), 200
     except Exception:
-        pass
+        exception('\n -->[SERVER]: Error en /api/addlibro, log:\n')
+        return jsonify({'msg':'Ocurrio un error'}), 500
 
 
-if __name__ == '__main__':
+@app.route('/api/searchtitle', methods=['POST']) #----> ruta
+def searchTitleForm():
+    try:
+        tituloLibro = request.form['title']
+        libro = Libros.query.filter(Libros.title.like(f'%{tituloLibro}%')).first()
+        if not libro:
+            return jsonify({'msg': 'Este libro no existe'}), 200
+        else:
+            return jsonify(libro.serialize()), 200
+    except Exception:
+        exception('--> [SERVER]: Error en la ruta /api/searchtitle --> ')
+        return jsonify({'msg': 'Ocurrio un error'}), 500
+
+
+if __name__ == '__main__':  
     app.run(debug=True, port=4000),500

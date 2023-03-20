@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
-
-
     <style>
         *{
             margin:0;
@@ -27,8 +24,8 @@
         }
         .box{
             position: relative;
-            width: 820px;
-            height : 420px;
+            width: 420px;
+            height : 320px;
             background: #1c1c1c;
             border-radius: 8px;
             overflow: hidden;
@@ -40,8 +37,8 @@
             position: absolute;
             top: -50%;
             left: -50%;
-            width: 820px;
-            height: 420px;
+            width: 420px;
+            height: 320px;
             background: linear-gradient(0deg,transparent,
             #45f3ff,#45f3ff);
             transform-origin: bottom right;
@@ -53,8 +50,8 @@
             position: absolute;
             top: -50%;
             left: -50%;
-            width: 820px;
-            height: 420px;
+            width: 420px;
+            height: 320px;
             background: linear-gradient(0deg,transparent,
             #45f3ff,#45f3ff);
             transform-origin: bottom right;
@@ -94,7 +91,7 @@
         .inputBox
         {
             position: relative;
-            width: 300px;
+            width: 330px;
             margin-top: 35px;
         }
         .inputBox input{
@@ -168,89 +165,33 @@
             border-radius: 4px;
             font-weight:  600;
             cursor: pointer;
+            transform: translateX(110px);
         }
         input[type="submit"]:active
         {
             opacity: 0.8;
         }
-
-
-        .form-row {
-            width: 100%;
-            overflow: hidden;
-        }
-        
-        .form-col {
-            width: 50%;
-            float: left;
-        }
-        
-        .form-col-left {
-            padding-right: 10px;
-        }
-        
-        .form-col-right {
-            padding-left: 10px;
-        }
-        
-
     </style>
 </head>
 <body>
     <div class="box">
-        <form action="/api/addlibro" method="post" class="form">
+        <form action="/api/searchtitle" method="post" class="form">
 
             <h2>
-                Añade un nuevo libro
+                Buscar un libro
             </h2>
 
             <!-- =================================================== -->
-            <div class="form-row">
-                <div class="form-col form-col-left">
-                    <div class="inputBox">
-                        <input type="text" required="required" id="title" name="title">
-                            <label for="title">Título</label>
-                        <i></i>
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="number" required="required" id="year" name="year">
-                            <label for="year">Año</label>
-                        <i></i>
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="text" required="required" id="author" name="author">
-                            <label for="author">Autor</label>
-                        <i></i>
-                    </div>
-                </div>
-
-            <!-- ========================================================== -->
-                <div class="form-col form-col-right">
-                    <div class="inputBox">
-                        <input type="text" required="required" id="languaje" name="languaje">
-                            <label for="languaje">Idioma</label>
-                        <i></i>
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="text" required="required" id="status" name="status" title="Estado de la publicacion po ejm: 'Publicado'">
-                            <label for="status">Estado</label>
-                        <i></i>
-                    </div>
-
-                    <div class="inputBox">
-                        <input type="text" required="required" id="url" name="url" title="Link de la publicación .pdf .html etc">
-                            <label for="url">Url</label>
-                        <i></i>
-                    </div>
-                </div>
+            <div class="inputBox">
+                <input type="text" required="required" id="title" name="title">
+                <label for="title">Ingrese el título del libro para buscar</label>
+                <i></i>
             </div>
+
             <div class="trampa">
                 <span href="#">Ocultar</span>
             </div>
-            <!-- BOTON DE SUBMIT -->
+
             <input type="submit" value="Enviar">
 
         </form>
