@@ -39,11 +39,21 @@ def getLibroByTitle():
         return jsonify({'msg': 'Ocurrio un error'}), 500
 
 
-@app.route('/api/libro', methods=['GET'])
-def getLibroByTitle():
+@app.route('/api/filtrarlibro', methods=['GET'])
+def getLibro():
     try:
-        tituloLibro = request.args['title']
-        libro = Libros.query.filter_by(title=tituloLibro).first()
+        fields = {}
+        if 'title' is request.args:
+            fields['title'] = request.args['title']
+            
+        if 'author' is request.args:
+            fields['author'] = request.args['author']
+
+        if 'year' is request.args:
+            fields['year'] = request.args['year']
+
+        libro = Libros.query.filter_by(**fields).first()
+        
         if not libro:
             return jsonify({'msg': 'Este libro no existe'}), 200
         else:
