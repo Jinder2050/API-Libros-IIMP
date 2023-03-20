@@ -1,6 +1,6 @@
 import sqlite3 as sql
 
-
+#Las columnas de la tabla y las claves del json estaran en ingles por conflictos con caracteres especiales
 DB_PATH = "Database/libros.db"
 
 def createDB():
@@ -8,9 +8,9 @@ def createDB():
     cursor = conn.cursor()
     cursor.execute(
         """CREATE TABLE libros 
-        (Titulo TEXT,
-        Año INT,
-        Autor TEXT
+        (title TEXT,
+        year INT,
+        author TEXT
         )"""
     )
     conn.commit()
